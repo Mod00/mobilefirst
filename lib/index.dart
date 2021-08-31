@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modflutter/config/constant.dart';
 
 class Index extends StatelessWidget {
   @override
@@ -40,13 +41,17 @@ class Index extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: sFont,
                   ),
                   primary: Colors.amber[900],
                   padding: EdgeInsets.all(20.0),
                   shape: StadiumBorder()),
               child: Text('LOGIN'),
               onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  'login',
+                );
                 print("LOGIN!!");
               },
             ),
@@ -56,13 +61,17 @@ class Index extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: sFont,
                   ),
                   primary: Colors.amber[900],
                   padding: EdgeInsets.all(20.0),
                   shape: StadiumBorder()),
               child: Text('SIGN UP'),
               onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  'register',
+                );
                 print("SIGN UP!!");
               },
             ),
