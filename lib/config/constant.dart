@@ -6,3 +6,4 @@ const pColor = Color(0xFFFF8C00);
 const sColor = Color(0xFFFFA500);
 
 const sFont = 29.0;
+const sFontsize = 18;
