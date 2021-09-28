@@ -14,6 +14,11 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   adobe_xd: ^2.0.0+1
+  sembast: ^3.1.0+2
+  path_provider: ^2.0.4
+  path: ^1.8.0
+  http_parser: ^4.0.0
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:

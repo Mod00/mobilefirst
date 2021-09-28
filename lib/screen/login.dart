@@ -1,45 +1,115 @@
 import 'package:flutter/material.dart';
+import 'package:modflutter/backend/database.dart';
+import 'package:modflutter/config/constant.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
-
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  var email, password;
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Container(
-        color: Colors.deepOrange[100],
-        child: ListView(
-          children: [
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            Image(
-              image: NetworkImage(
-                  'https://images.unsplash.com/photo-1629757349708-a9abe5d3d354?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80'),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            Text(
-              "KMUTNB Login",
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.deepOrange[500],
-                fontWeight: FontWeight.bold,
+      body: Form(
+        key: formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: size.height * 0.02,
               ),
-              textAlign: TextAlign.center,
-            ),
-          ],
+              Image(
+                image: NetworkImage(
+                    'https://images.unsplash.com/photo-1629757349708-a9abe5d3d354?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80'),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+              Text(
+                "KMUTNB to Login",
+                style: TextStyle(
+                  fontSize: 32,
+                  color: Colors.deepOrange[500],
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: size.height * 0.04,
+              ),
+              Container(
+                width: size.width * 0.9,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  decoration: InputDecoration(
+                    icon: Icon(
+                      Icons.alternate_email,
+                      color: pColor,
+                      size: size.height * 0.05,
+                    ),
+                    hintText: "Email",
+                  ),
+                  onSaved: (value) {
+                    email = value;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.04,
+              ),
+              Container(
+                width: size.width * 0.9,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    icon: Icon(
+                      Icons.lock,
+                      color: pColor,
+                      size: size.height * 0.05,
+                    ),
+                    hintText: "Password",
+                  ),
+                  onSaved: (value) {
+                    password = value;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.04,
+              ),
+              ElevatedButton(
+                child: Text('Submit'),
+                onPressed: () {
+                  formKey.currentState!.save();
+                  // print("$email $password");
+                  var local = LocalDB();
+                  local.login(email, password).then((value) {
+                    if (value) {
+                      print('success');
+                      Navigator.pushNamed(context, 'dashboard');
+                    } else {
+                      print('fail');
+                      final bar = SnackBar(
+                        content: Text('ไม่พบข้อมูล'),
+                        backgroundColor: Colors.red[900],
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(bar);
+                    }
+                  });
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

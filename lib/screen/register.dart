@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:modflutter/backend/database.dart';
 import 'package:modflutter/config/constant.dart';
 
 class Register extends StatefulWidget {
@@ -136,17 +137,19 @@ class _RegisterState extends State<Register> {
 
   Widget btnSubmit() {
     return ElevatedButton(
-      child: Text('Submit'),
-      onPressed: () {
-        if (formkey.currentState!.validate()) {
-          print('สมัครเรียบร้อย');
-          formkey.currentState!.save();
-          print("ชื่อ: $name");
-          print("นามสกุล: $surname");
-          print("Email: $email");
-          print("Password: $password");
-        }
-      },
-    );
+        child: Text('Submit'),
+        onPressed: () {
+          if (formkey.currentState!.validate()) {
+            print('สมัครเรียบร้อย');
+            formkey.currentState!.save();
+            print("ชื่อ: $name");
+            print("นามสกุล: $surname");
+            print("Email: $email");
+            print("Password: $password");
+          }
+          var local = LocalDB();
+          local.Register(name, surname, email, password);
+          Navigator.pushNamed(context, 'login');
+        });
   }
 }
