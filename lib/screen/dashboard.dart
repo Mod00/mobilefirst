@@ -40,6 +40,40 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                child: Text('Menu Package'),
+                decoration: BoxDecoration(color: Colors.orange[400]),
+              ),
+              ListTile(
+                title: Text('Video'),
+                leading: Icon(Icons.video_collection),
+                onTap: () {
+                  print('Menu Video');
+                  Navigator.pushNamed(context, 'video');
+                },
+              ),
+              ListTile(
+                title: Text('Image'),
+                leading: Icon(Icons.image_outlined),
+                onTap: () {
+                  print('Menu Image');
+                  Navigator.pushNamed(context, 'Image');
+                },
+              ),
+              ListTile(
+                title: Text('GPS'),
+                leading: Icon(Icons.map_outlined),
+                onTap: () {
+                  print('Menu GPS');
+                  Navigator.pushNamed(context, 'location');
+                },
+              )
+            ],
+          ),
+        ),
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
